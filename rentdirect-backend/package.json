@@ -4,10 +4,15 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "bun run --watch src/index.ts",
-    "start": "bun run src/index.ts",
+    "dev": "bun --watch index.ts",
+    "start": "bun index.ts",
+    "build": "bun build index.ts --outdir dist --target bun",
+    "typecheck": "tsc --noEmit",
+    "lint": "biome check .",
+    "format": "biome format . --write",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
+    "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio"
   },
   "devDependencies": {
@@ -20,7 +25,9 @@
   },
   "dependencies": {
     "@hono/node-server": "^2.0.10",
-    "@neondatabase/serverless": "^1.1.0",
+    "@neondatabase/serverless": "0.10.4",
+    "better-auth": "^1.6.23",
+    "dotenv": "^17.4.2",
     "drizzle-orm": "^0.36.0",
     "hono": "^4.12.31",
     "postgres": "^3.4.4",

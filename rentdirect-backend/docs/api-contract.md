@@ -1,261 +1,188 @@
-# MindEase — API Contract Documentation
-Version 1.0 · Sprint 2
+# RentDirect — API Contract & Database Schema
+Week 2 Sprint Deliverable · Backend (Bun + Hono + Drizzle)
 
-Base URL (dev): `http://localhost:PORT/api`
+## Authentication
 
-Auth: session-based via Better Auth. Authenticated routes require a valid session
-cookie. No real names, emails, or photos are ever accepted or returned.
+RentDirect has **no login system for the MVP**. Landlord identity is handled
+via an **edit token**: a random, unguessable string generated when a listing
+is created and returned to the landlord once. That token is their only
+credential — whoever holds it can view/edit that listing via the
+`/api/listings/manage/:token` routes. There is no session, password, or
+account record.
+
+Reviewer identity (who verifies a listing) is also unauthenticated for the
+MVP — the reviewer's name is passed as free text on the review request. This
+is a known, deliberate MVP tradeoff (see PRD assumptions).
 
 ---
 
-## Auth
+## Endpoints
 
-### `POST /auth/signup`
-Create a pseudonymous account.
+### `POST /api/listings`
+Landlord submits a new listing.
 
 **Request body**
 ```json
 {
-  "username": "string (3-32 chars, unique)",
-  "password": "string (min 8 chars)"
+  "landlordName": "string",
+  "contactMethod": "phone | whatsapp",
+  "contactValue": "string",
+  "price": 150000,
+  "locationCity": "string",
+  "locationArea": "string (optional)",
+  "description": "string",
+  "photoUrls": ["https://..."]
 }
 ```
 
-**Response — 201 Created**
+**Response `201`**
 ```json
 {
-  "id": "uuid",
-  "username": "string",
-  "createdAt": "ISO8601 timestamp"
+  "listing": { "id": "uuid", "landlordName": "...", "status": "pending", "...": "..." },
+  "editToken": "string — shown once, landlord must save it"
 }
 ```
 
-**Errors**
-| Code | Reason |
-|------|--------|
-| 400  | Missing/invalid fields |
-| 409  | Username already taken |
-
 ---
 
-### `POST /auth/login`
-**Request body**
+### `GET /api/listings`
+Tenant search/browse. Defaults to `status=verified` unless a status is
+explicitly requested.
+
+**Query params**: `locationCity`, `minPrice`, `maxPrice`, `status`, `page` (default 1), `limit` (default 20, max 50)
+
+**Response `200`**
 ```json
-{
-  "username": "string",
-  "password": "string"
-}
+{ "data": [ { "id": "uuid", "price": "150000.00", "...": "..." } ], "page": 1, "limit": 20, "total": 42 }
 ```
-
-**Response — 200 OK**
-```json
-{
-  "id": "uuid",
-  "username": "string"
-}
-```
-Sets session cookie.
-
-**Errors**
-| Code | Reason |
-|------|--------|
-| 400  | Missing fields |
-| 401  | Invalid credentials |
+Note: `contactValue` and `editToken` are stripped from all public listing objects.
 
 ---
 
-### `POST /auth/logout`
-**Response — 200 OK** — clears session cookie.
+### `GET /api/listings/:id`
+Single listing detail (public — no contact info).
+
+**Response `200`**: `{ "listing": { ... } }`
+**Response `404`**: listing not found
 
 ---
 
-## Issue Tags
+### `POST /api/listings/:id/reveal`
+Tenant reveals the landlord's contact detail. Logs a `contact_reveals` row
+for the Data Analyst's success metrics.
 
-### `GET /issue-tags`
-List all available issue types for matching.
-
-**Auth required:** No
-
-**Response — 200 OK**
+**Response `200`**
 ```json
-[
-  { "id": "uuid", "name": "burnout" },
-  { "id": "uuid", "name": "anxiety" },
-  { "id": "uuid", "name": "grief" },
-  { "id": "uuid", "name": "relationship stress" }
-]
+{ "contactMethod": "phone", "contactValue": "+234..." }
 ```
 
 ---
 
-## Matching
-
-### `POST /match`
-Match the logged-in user to an available counsellor by issue type. Deducts one
-session credit and creates a `pending` session.
-
-**Auth required:** Yes
+### `POST /api/listings/:id/review`
+Reviewer applies the verified/rejected decision (manual review, no auth).
 
 **Request body**
 ```json
 {
-  "issueTagId": "uuid"
+  "reviewerName": "string",
+  "decision": "approved | rejected",
+  "checklistPassed": { "photosMatchDescription": true, "priceReasonable": true },
+  "notes": "string (optional)"
 }
 ```
 
-**Response — 201 Created**
-```json
-{
-  "sessionId": "uuid",
-  "counsellor": {
-    "id": "uuid",
-    "displayName": "string",
-    "bio": "string"
-  },
-  "status": "pending",
-  "creditsRemaining": 0
-}
-```
-
-**Errors**
-| Code | Reason |
-|------|--------|
-| 400  | Invalid or missing `issueTagId` |
-| 401  | Not authenticated |
-| 403  | Insufficient session credits |
-| 404  | No available counsellor for this issue tag |
+**Response `200`**: `{ "review": { ... }, "status": "verified | rejected" }`
 
 ---
 
-## Sessions
+### `GET /api/listings/manage/:token`
+Landlord's "dashboard" — full listing detail, including their own contact
+info, via edit token instead of login.
 
-### `GET /sessions/:id`
-Fetch session details (for chat screen header, status, etc.).
-
-**Auth required:** Yes (must be a participant in the session)
-
-**Response — 200 OK**
-```json
-{
-  "id": "uuid",
-  "status": "pending | active | completed | cancelled",
-  "counsellor": { "id": "uuid", "displayName": "string" },
-  "issueTag": { "id": "uuid", "name": "string" },
-  "createdAt": "ISO8601 timestamp"
-}
-```
-
-**Errors**
-| Code | Reason |
-|------|--------|
-| 401  | Not authenticated |
-| 403  | Not a participant in this session |
-| 404  | Session not found |
+**Response `200`**: `{ "listing": { ...full row... } }`
+**Response `401`**: invalid/unknown token
 
 ---
 
-## Messages
+### `PATCH /api/listings/manage/:token`
+Landlord edits their listing via edit token. All fields optional (partial update).
 
-### `GET /sessions/:id/messages`
-Fetch all messages in a session, ordered by `createdAt` ascending.
-
-**Auth required:** Yes (must be a participant)
-
-**Response — 200 OK**
-```json
-[
-  {
-    "id": "uuid",
-    "senderRole": "user | counsellor",
-    "content": "string",
-    "createdAt": "ISO8601 timestamp"
-  }
-]
-```
-
-**Errors**
-| Code | Reason |
-|------|--------|
-| 401  | Not authenticated |
-| 403  | Not a participant in this session |
-| 404  | Session not found |
+**Request body**: any subset of the `POST /api/listings` fields
+**Response `200`**: `{ "listing": { ...updated row... } }`
+**Response `401`**: invalid/unknown token
 
 ---
 
-### `POST /sessions/:id/messages`
-Send a message within a session.
+## Error Codes
 
-**Auth required:** Yes (must be a participant)
-
-**Request body**
+All errors use a consistent envelope:
 ```json
-{
-  "content": "string (1-2000 chars)"
-}
+{ "error": { "code": "STRING_CODE", "message": "human readable", "details": {} } }
 ```
 
-**Response — 201 Created**
-```json
-{
-  "id": "uuid",
-  "senderRole": "user | counsellor",
-  "content": "string",
-  "createdAt": "ISO8601 timestamp"
-}
-```
-
-**Errors**
-| Code | Reason |
-|------|--------|
-| 400  | Empty or oversized content |
-| 401  | Not authenticated |
-| 403  | Not a participant, or session not `active`/`pending` |
-| 404  | Session not found |
+| HTTP Status | Code | Meaning |
+|---|---|---|
+| 400 | `VALIDATION_ERROR` | Request body/query failed schema validation |
+| 401 | `INVALID_EDIT_TOKEN` | Edit token missing, wrong, or doesn't match a listing |
+| 404 | `NOT_FOUND` | Listing or route doesn't exist |
+| 409 | `CONFLICT` | Reserved for future use (e.g. duplicate submission) |
+| 500 | `INTERNAL_ERROR` | Unhandled server error |
 
 ---
 
-## Credits
+## Database Schema — ER Diagram
 
-### `GET /credits`
-Get the logged-in user's current session-credit balance.
+```mermaid
+erDiagram
+    LISTINGS ||--o{ LISTING_REVIEWS : "has"
+    LISTINGS ||--o{ CONTACT_REVEALS : "has"
 
-**Auth required:** Yes
+    LISTINGS {
+        uuid id PK
+        text landlord_name
+        enum contact_method
+        text contact_value
+        numeric price
+        text location_city
+        text location_area
+        text description
+        text[] photo_urls
+        enum status
+        text edit_token UK
+        timestamp created_at
+        timestamp updated_at
+    }
 
-**Response — 200 OK**
-```json
-{
-  "balance": 1
-}
+    LISTING_REVIEWS {
+        uuid id PK
+        uuid listing_id FK
+        text reviewer_name
+        jsonb checklist_passed
+        enum decision
+        text notes
+        timestamp created_at
+    }
+
+    CONTACT_REVEALS {
+        uuid id PK
+        uuid listing_id FK
+        timestamp revealed_at
+    }
 ```
 
-**Errors**
-| Code | Reason |
-|------|--------|
-| 401  | Not authenticated |
+**Notes**
+- `listings.edit_token` is unique and is the landlord's sole credential — no `users` table exists for the MVP.
+- `contact_reveals` has no tenant reference (no tenant accounts either), so it supports *count* metrics only, not unique-tenant metrics — flagged for the Data Analyst.
+- `listing_reviews` keeps a full audit trail of review decisions even though `listings.status` only reflects the latest one.
 
 ---
 
-## Error Response Shape (all endpoints)
-```json
-{
-  "error": {
-    "code": "string (e.g. INSUFFICIENT_CREDITS)",
-    "message": "human-readable string"
-  }
-}
-```
+## Progress This Sprint
 
-## Standard HTTP Error Codes Used
-| Code | Meaning |
-|------|---------|
-| 400  | Bad request — validation failure |
-| 401  | Not authenticated |
-| 403  | Authenticated but not authorized for this resource |
-| 404  | Resource not found |
-| 409  | Conflict (e.g. duplicate username) |
-| 500  | Server error |
-
-## Explicitly Out of Scope (Sprint 2)
-- Voice-modulated calls
-- Real payment/escrow processing
-- Clinical record-keeping or diagnosis tools
+- [x] Schema defined in Drizzle (`src/db/schema.ts`): `listings`, `listing_reviews`, `contact_reveals`
+- [x] Zod request/response validation for all inputs (`src/types.ts`)
+- [x] Routes implemented: create, search/browse, detail, reveal, review, token-based manage (get + patch)
+- [x] Consistent error envelope + error codes
+- [ ] Migrations generated and run against a live Postgres instance
+- [ ] Rate limiting / abuse protection on `POST /api/listings` and `/reveal` (open question — no auth means no natural throttle point yet)
+- [ ] Photo upload handling (currently expects pre-hosted URLs — decide storage provider with Frontend)
