@@ -57,11 +57,16 @@ export async function reviewListing(id: string, input: ReviewListingInput) {
 
     const newStatus = input.decision === "approved" ? "verified" : "rejected";
 
-    const [review] = await db.transaction(async (tx) => {
-        const [r] = await tx.insert(listingReviews).values({ listingId: id, ...input }).returning();
-        await tx.update(listings).set({ status: newStatus, updatedAt: new Date() }).where(eq(listings.id, id));
-        return [r];
-    });
+    const [review] = await db
+        .insert(listingReviews)
+        .values({ listingId: id, ...input })
+        .returning();
+    if (!review) throw Errors.internal();
+
+    await db
+        .update(listings)
+        .set({ status: newStatus, updatedAt: new Date() })
+        .where(eq(listings.id, id));
 
     return { review, status: newStatus };
 }
@@ -88,3 +93,4 @@ export async function updateListingByToken(token: string, input: UpdateListingIn
     if (!updated) throw Errors.internal();
     return updated;
 }
+
