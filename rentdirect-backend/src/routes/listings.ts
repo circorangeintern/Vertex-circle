@@ -8,7 +8,7 @@ export const listingsRoute = new Hono();
 listingsRoute.post("/", listingController.create);
 listingsRoute.get("/", listingController.search);
 listingsRoute.get("/:id", listingController.getById);
-listingsRoute.post("/:id/reveal", listingController.reveal);
+listingsRoute.post("/:id/review", listingController.review);
 
 // Reviewer-only — session required (Better Auth)
 listingsRoute.post("/:id/review", async (c, next) => {
