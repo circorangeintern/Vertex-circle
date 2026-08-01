@@ -1,9 +1,0 @@
-HTTP/1.1 200 OK
-set-cookie: better-auth.session_token=VHimerkDjrHcV21nLaIU9en6ssqs5Dez.RukVCBNSvKeFtXwbY9OzVxeJD3rP8oL2lKBXLCieGbA%3D; Max-Age=604800; Path=/; HttpOnly; SameSite=Lax
-Content-Type: application/json
-Access-Control-Allow-Credentials: true
-Vary: Origin
-Date: Wed, 29 Jul 2026 11:38:52 GMT
-Content-Length: 271
-
-{"redirect":false,"token":"VHimerkDjrHcV21nLaIU9en6ssqs5Dez","user":{"name":"Reviewer2","email":"reviewer2@test.com","emailVerified":false,"image":null,"createdAt":"2026-07-25T15:39:47.361Z","updatedAt":"2026-07-25T15:39:47.361Z","id":"gqFTSWHWVnNSeVq7kPQxoLGoTfIqlNIN"}}
