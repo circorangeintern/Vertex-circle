@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RentDirect - Listing Detail</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Importing Bricolage Grotesque and Inter as per project design tokens -->
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="ListDetail.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Hero Section with Image Carousel / Placeholder & Back Button -->
+        <div class="hero-section">
+            <button class="back-btn" id="backBtn" aria-label="Go back">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="#26221C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+
+            <!-- Image placeholder matching the screenshot -->
+            <div class="image-placeholder">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="3" y="3" width="18" height="18" rx="2" stroke="#5C554A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="8.5" cy="8.5" r="1.5" fill="#5C554A"/>
+                    <path d="M21 15L16 10L5 21" stroke="#5C554A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+
+            <!-- Hero Bottom Overlay: Verified Badge & Pagination Dots -->
+            <div class="hero-overlay-bottom">
+                <div class="verified-badge">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>VERIFIED</span>
+                </div>
+                <div class="pagination-dots">
+                    <span class="dot active"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Price and Title Section -->
+            <section class="price-section">
+                <h1 class="price-heading">₦450,000 <span class="price-period">/ year</span></h1>
+                <h2 class="sub-heading">Self-contained apartment</h2>
+                <div class="location-row">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 21C16 17 20 13.4183 20 10C20 5.58172 16.4183 2 12 2C7.58172 2 4 5.58172 4 10C4 13.4183 8 17 12 21Z" stroke="#5C554A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12 12C13.1046 12 14 11.1046 14 10C14 8.89543 13.1046 8 12 8C10.8954 8 10 8.89543 10 10C10 11.1046 10.8954 12 12 12Z" stroke="#5C554A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span class="location-text">Behind First Bank, Yaba, Lagos</span>
+                </div>
+            </section>
+
+            <!-- Amenities Chips Section -->
+            <section class="chips-section">
+                <div class="chip">Own bath</div>
+                <div class="chip">Prepaid meter</div>
+                <div class="chip">Tiled floor</div>
+                <div class="chip">Gated compound</div>
+            </section>
+
+            <!-- About This Home Section -->
+            <section class="about-section">
+                <h3 class="section-title">About this home</h3>
+                <p class="about-text">
+                    A clean self-contained room with its own bathroom and kitchen space. Water runs every day. The compound is gated and locked by 11pm. One year rent in advance.
+                </p>
+
+                <!-- Verification Info Card -->
+                <div class="info-card">
+                    <div class="info-card-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 12L11 14L15 10M12 3L19 6V11C19 15.55 15.84 19.74 12 21C8.16 19.74 5 15.55 5 11V6L12 3Z" stroke="#2D6A4F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <p class="info-card-text">
+                        Verified — our team checked this listing on 12 July 2026. Still, visit the property before you pay anything.
+                    </p>
+                </div>
+            </section>
+        </main>
+
+        <!-- Sticky Footer CTA -->
+        <footer class="footer-cta">
+            <button class="primary-cta-btn" id="contactBtn">
+                Show Landlord's contact
+            </button>
+        </footer>
+    </div>
+
+    <script src="ListDetail.js"></script>
+</body>
+</html>

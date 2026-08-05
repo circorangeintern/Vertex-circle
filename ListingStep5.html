@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RentDirect - Step 5 of 5</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="ListingStep5.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Header Section -->
+        <header class="header-nav">
+            <button class="back-btn" id="backBtn" aria-label="Go back">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="#26221C" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+            </button>
+            <span class="step-indicator">Step 5 of 5</span>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <h1 class="section-title">Check everything, then submit</h1>
+
+            <!-- Section 1: First 3 Cards -->
+            <section class="review-section">
+                <!-- Info Card 1: Title -->
+                <div class="info-card" data-step="1">
+                    <div class="card-content-wrapper">
+                        <span class="card-label">Title</span>
+                        <span class="card-value">4 photos added</span>
+                    </div>
+                    <a href="./ListStep1.html">
+                        <button class="edit-btn" aria-label="Edit title">Edit</button>
+                    </a>
+                </div>
+
+                <!-- Info Card 2: Description -->
+                <div class="info-card" data-step="2">
+                    <div class="card-content-wrapper">
+                        <span class="card-label">Description</span>
+                        <span class="card-value">Clean self-contained room with......</span>
+                    </div>
+                    <a href="./ListStep1.html">
+                        <button class="edit-btn" aria-label="Edit description">Edit</button>
+                    </a>
+                </div>
+
+                <!-- Info Card 3: Photos -->
+                <div class="info-card" data-step="3">
+                    <div class="card-content-wrapper">
+                        <span class="card-label">Photos</span>
+                        <span class="card-value">4 photos added</span>
+                    </div>
+                    <a href="./ListingStep2.html">
+                        <button class="edit-btn" aria-label="Edit photos">Edit</button>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Section 2: Remaining 3 Cards + Notice Card -->
+            <section class="review-section">
+                <!-- Info Card 4: Location -->
+                <div class="info-card" data-step="4">
+                    <div class="card-content-wrapper">
+                        <span class="card-label">Location</span>
+                        <span class="card-value">Alagomeji, Yaba, Lagos</span>
+                    </div>
+                    <a href="./ListingStep4.html">
+                        <button class="edit-btn" aria-label="Edit location">Edit</button>
+                    </a>
+                </div>
+
+                <!-- Info Card 5: Description (Second instance matching screenshot) -->
+                <div class="info-card" data-step="5">
+                    <div class="card-content-wrapper">
+                        <span class="card-label">Description</span>
+                        <span class="card-value">Clean self-contained room with...</span>
+                    </div>
+                    <a href="./ListStep1.html">
+                        <button class="edit-btn" aria-label="Edit description">Edit</button>
+                    </a>
+                </div>
+
+                <!-- Info Card 6: Contact -->
+                <div class="info-card" data-step="6">
+                    <div class="card-content-wrapper">
+                        <span class="card-label">Contact</span>
+                        <span class="card-value">0803 456 7890 (calls + WhatsApp)</span>
+                    </div>
+                    <a href="./ListStep1.html">
+                        <button class="edit-btn" aria-label="Edit contact">Edit</button>
+                    </a>
+                </div>
+
+                <!-- Notice Card -->
+                <div class="notice-card">
+                    <div class="notice-icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="12" cy="12" r="9" stroke="#26221C" stroke-width="1.8" />
+                            <path d="M12 8V12" stroke="#26221C" stroke-width="1.8" stroke-linecap="round" />
+                            <circle cx="12" cy="16" r="1" fill="#26221C" />
+                        </svg>
+                    </div>
+                    <p class="notice-text">
+                        Our team reviews every listing before it goes live — usually within 1 working day.
+                    </p>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer / Sticky CTA -->
+        <footer class="footer-cta">
+            <a href="./sucess.html">
+                <button class="primary-cta-btn" id="submitBtn">
+                    Submit for review
+                </button>
+            </a>
+        </footer>
+    </div>
+
+    <script src="ListingStep5.js"></script>
+</body>
+
+</html>

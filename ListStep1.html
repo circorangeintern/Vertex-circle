@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Step 1 of 5</title>
+
+  <!-- Fonts: Bricolage Grotesque for headings, Inter for body (RentDirect type tokens) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet" />
+
+  <link rel="stylesheet" href="ListStep1.css" />
+</head>
+
+<body>
+  <div class="app">
+    <main class="screen">
+
+      <!-- Header -->
+      <header class="app-header">
+        <a href="./home.html" style="text-decoration: none;">
+          <button class="back-btn" id="backBtn" aria-label="Go back">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon icon-arrow">
+              <path d="M19 12H5" stroke="#26221C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M12 19L5 12L12 5" stroke="#26221C" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+          </button>
+        </a>
+        <h1 class="app-title">Step 1 of 5</h1>
+      </header>
+
+      <!-- Progress bar -->
+      <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="5" aria-valuenow="1"
+        aria-label="Listing step progress">
+        <div class="progress-fill" id="progressFill" style="width: 20%;"></div>
+      </div>
+
+      <!-- Form -->
+      <form class="listing-form" id="listingForm" novalidate>
+
+        <!-- Title (reusable field-group structure) -->
+        <div class="field-group">
+          <label class="field-label" for="titleInput">Title</label>
+          <input id="titleInput" name="title" class="field-input" type="text" placeholder="Tap to type&hellip;"
+            autocomplete="off" />
+          <p class="field-hint">Enter a title for your listing.</p>
+        </div>
+
+        <!-- Description -->
+        <div class="field-group">
+          <label class="field-label field-label-wrap" for="descriptionInput">Write a description of your listing</label>
+          <textarea id="descriptionInput" name="description" class="field-textarea" rows="4"
+            placeholder="Clean self&ndash;contained room with private bathroom and kitchenette. Gated compound, borehole water, 10 minutes' walk from Yaba bus stop. No agency or legal fee."></textarea>
+          <p class="field-hint">Enter a short description of your listing.</p>
+        </div>
+
+        <!-- Phone number -->
+        <div class="field-group">
+          <label class="field-label" for="phoneInput">Phone Number</label>
+          <input id="phoneInput" name="phone" class="field-input" type="tel" placeholder="Tap to type&hellip;"
+            autocomplete="off" />
+          <p class="field-hint">Enter a your phone number.</p>
+        </div>
+      </form>
+    </main>
+
+    <!-- Sticky continue button -->
+    <!-- Sticky continue button -->
+    <div class="continue-bar">
+      <!-- Added pointer-events: auto to force clickability -->
+      <BUtton>
+        <a href="ListingStep2.html" class="btn-primary" id="continueBtn"
+          style="text-decoration: none; display: inline-block; text-align: center; pointer-events: auto !important;">
+          <span class="btn-label">Continue</span>
+        </a>
+      </BUtton>
+    </div>
+
+
+
+    <!-- Bottom navigation -->
+    <footer class="app-footer">
+      <nav class="bottom-nav" aria-label="Primary">
+        <a href="./home.html" style="text-decoration: none;">
+          <button class="nav-item is-active" data-nav="home">
+            <svg class="icon icon-home" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 11.5L12 4.5L20 11.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                stroke-linejoin="round" />
+              <path d="M6 10V19C6 19.55 6.45 20 7 20H17C17.55 20 18 19.55 18 19V10" stroke="currentColor"
+                stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M10 20V15H14V20" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" />
+            </svg>
+            <span>Find a home</span>
+          </button>
+        </a>
+
+        <button class="nav-item" data-nav="list">
+          <svg class="icon icon-plus" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 5V19" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+            <path d="M5 12H19" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+          </svg>
+          <span>List property</span>
+        </button>
+
+        <a href="./howItWorks.html" style="text-decoration: none;">
+          <button class="nav-item" data-nav="how">
+            <svg class="icon icon-help" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="12" cy="12" r="8.2" stroke="currentColor" stroke-width="1.8" />
+              <path
+                d="M9.7 9.3C9.9 8.1 10.9 7.3 12.1 7.4C13.3 7.5 14.2 8.5 14 9.7C13.85 10.7 13 11.1 12.4 11.6C11.9 12 11.6 12.4 11.6 13.1"
+                stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+              <circle cx="11.7" cy="15.6" r="0.9" fill="currentColor" />
+            </svg>
+            <span>How it works</span>
+          </button>
+        </a>
+      </nav>
+    </footer>
+  </div>
+
+  <script src="ListStep1.js"></script>
+</body>
+
+</html>

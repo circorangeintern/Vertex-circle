@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RentDirect - Listing Status</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="sucess.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header Section -->
+        <header class="app-header">
+            <div class="brand-logo">
+                <span class="logo-icon">R</span>
+                <span class="brand-name">RentDirect</span>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Success Hero Card -->
+            <section class="info-card success-card">
+                <div class="success-icon-wrapper">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5 13L9 17L19 7" stroke="#2D6A4F" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <h1 class="card-title">Your listing is in</h1>
+                <p class="card-desc">
+                    We'll review it within 1 working day. Save this page — it's your private link to check status and edit.
+                </p>
+            </section>
+
+            <!-- Status Timeline Card -->
+            <section class="info-card status-card">
+                <h2 class="status-heading">STATUS</h2>
+                
+                <div class="timeline">
+                    <!-- Step 1: Submitted (Completed) -->
+                    <div class="timeline-item completed">
+                        <div class="timeline-indicator">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M5 13L9 17L19 7" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div class="timeline-content">
+                            <span class="timeline-title">Submitted</span>
+                            <span class="timeline-subtitle">Today, 2:14 pm</span>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Under review (Active/In Progress) -->
+                    <div class="timeline-item active">
+                        <div class="timeline-indicator">
+                            <div class="inner-dot"></div>
+                        </div>
+                        <div class="timeline-content">
+                            <span class="timeline-title">Under review</span>
+                            <span class="timeline-subtitle">In progress</span>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Live & verified (Pending) -->
+                    <div class="timeline-item pending">
+                        <div class="timeline-indicator"></div>
+                        <div class="timeline-content">
+                            <span class="timeline-title">Live & verified</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Bottom Navigation Footer -->
+        <footer class="app-footer">
+            <nav class="footer-nav">
+                <button class="nav-item active" data-tab="find">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3 9L12 2L21 9V20C21 20.5304 20.7893 21.0391 20.4142 21.4142C20.0391 21.7893 19.5304 22 19 22H5C4.46957 22 3.96086 21.7893 3.58579 21.4142C3.21071 21.0391 3 20.5304 3 20V9Z" stroke="#2D6A4F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M9 22V12H15V22" stroke="#2D6A4F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>Find a home</span>
+                </button>
+                <button class="nav-item" data-tab="list">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 5V19M5 12H19" stroke="#5C554A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>List property</span>
+                </button>
+                <button class="nav-item" data-tab="help">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="9" stroke="#5C554A" stroke-width="2"/>
+                        <path d="M9.09 9C9.3251 8.33167 9.78915 7.76811 10.4009 7.40915C11.0127 7.05018 11.7341 6.91963 12.4339 7.03873C13.1337 7.15783 13.7663 7.51821 14.2155 8.05753C14.6647 8.59685 14.9031 9.27836 14.9 9.98C14.9 12 11.9 13 11.9 13" stroke="#5C554A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <circle cx="12" cy="17" r="1" fill="#5C554A"/>
+                    </svg>
+                    <span>How it works</span>
+                </button>
+            </nav>
+        </footer>
+    </div>
+
+    <script src="sucess.js"></script>
+</body>
+</html>
