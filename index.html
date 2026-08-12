@@ -1,82 +1,16 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>RentDirect</title>
-
-  <!-- Fonts: Bricolage Grotesque for headings/wordmark, Inter for body (RentDirect type tokens) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap"
-    rel="stylesheet"
-  />
-
-  <link rel="stylesheet" href="Landing.css" />
-</head>
-<body>
-  <div class="app">
-    <main class="screen">
-
-      <!-- Brand -->
-      <header class="app-header">
-        <span class="brand-mark" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon icon-home">
-            <path d="M4.5 11.5L12 4.8L19.5 11.5" stroke="#FFFFFF" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M6.3 10V18C6.3 18.55 6.75 19 7.3 19H16.7C17.25 19 17.7 18.55 17.7 18V10" stroke="#FFFFFF" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M10.3 19V14.3H13.7V19" stroke="#FFFFFF" stroke-width="1.9" stroke-linejoin="round"/>
-          </svg>
-        </span>
-        <span class="brand-name">RentDirect</span>
-      </header>
-
-      <!-- Hero -->
-      <section class="hero">
-        <h1 class="hero-title">
-          Find your next home.
-          <span class="hero-accent">No agent fee.</span> No extra fee.
-        </h1>
-        <p class="hero-sub">Talk to the landlord yourself. Every Verified home is checked by our team first.</p>
-      </section>
-
-      <!-- Info banner -->
-      <section class="info-banner">
-        <span class="info-banner-icon" aria-hidden="true">
-          <svg class="icon icon-shield" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 3.5L18.5 5.8V11C18.5 15.3 15.8 18.3 12 20.2C8.2 18.3 5.5 15.3 5.5 11V5.8L12 3.5Z" stroke="#2D6A4F" stroke-width="1.7" stroke-linejoin="round"/>
-            <path d="M9.3 11.2L11.1 13L14.7 9.2" stroke="#2D6A4F" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </span>
-        <p class="info-banner-text">Agents charge up to one extra month of rent. Here, you pay the landlord only.</p>
-      </section>
-
-      <!-- Actions -->
-      <section class="actions">
-        <h2 class="actions-title">What do you want to do?</h2>
-
-        <a href="home.html" style="text-decoration: none;">
-        <button class="btn-primary" id="findHomeBtn">
-          <span class="btn-label">Find a home</span>
-        </button>
-        </a>
-
-        <a href="ListStep1.html" style="text-decoration: none;">
-        <button class="btn-outline" id="listPropertyBtn">List your property</button>
-        </a>
-
-        <span>
-          <button class="btn-text" id="howItWorksBtn">
-            <a href="./howItWorks.html" style="text-decoration: none;">
-            How it works
-          </a>
-          </button>
-          </span>
-      </section>
-
-    </main>
-  </div>
-
-  <script src="Landing.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vertex-circle</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 </html>
