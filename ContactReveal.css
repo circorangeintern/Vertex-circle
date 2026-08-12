@@ -1,0 +1,332 @@
+/* ===========================================================
+   RentDirect — Landlord contact reveal bottom sheet
+   Tokens pulled from RentDirect developer specifications
+   =========================================================== */
+
+:root {
+  /* Color tokens */
+  --primary: #2D6A4F;
+  --primary-press: #1F4D39;
+  --ink: #26221C;
+  --ink-soft: #5C554A;
+  --canvas: #F3EEE6;
+  --surface: #FDFCF9;
+  --line: #CFC7B8;
+  --photo-dim: #5C5148;
+  --phone-card-bg: #EEF3F0;
+  --avatar-bg: #E8DFCF;
+
+  /* Spacing (base unit 4px) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --gutter-mobile: 20px;
+  --gutter-desktop: 48px;
+
+  /* Radius */
+  --radius-sheet: 28px;
+  --radius-card: 18px;
+  --radius-pill: 999px;
+
+  /* Shadow */
+  --shadow-sheet: 0 -8px 30px rgba(38, 34, 28, 0.14);
+
+  /* Type */
+  --font-display: "Bricolage Grotesque", sans-serif;
+  --font-body: "Inter", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  background: #EAE6DC;
+  font-family: var(--font-body);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Center the mobile container on larger screens */
+.app {
+  max-width: 430px;
+  margin: 0 auto;
+  min-height: 100vh;
+  background: var(--canvas);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  body {
+    padding: 40px 0;
+  }
+  .app {
+    min-height: calc(100vh - 80px);
+    border-radius: 28px;
+    box-shadow: 0 20px 60px rgba(38, 34, 28, 0.18);
+  }
+}
+
+/* ---------- Dimmed listing photo (screen behind the sheet) ---------- */
+.backdrop {
+  flex: 1;
+  min-height: 40%;
+  background: var(--photo-dim);
+}
+
+/* ---------- Contact sheet ---------- */
+.sheet {
+  position: relative;
+  z-index: 2;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border-radius: var(--radius-sheet) var(--radius-sheet) 0 0;
+  box-shadow: var(--shadow-sheet);
+  animation: sheet-in 0.28s ease-out;
+}
+
+@keyframes sheet-in {
+  from {
+    transform: translateY(24px);
+    opacity: 0.6;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.sheet-handle {
+  width: 40px;
+  height: 4px;
+  border-radius: var(--radius-pill);
+  background: var(--line);
+  margin: 12px auto 0;
+  flex-shrink: 0;
+}
+
+.sheet-content {
+  padding: var(--space-6) var(--gutter-mobile) var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+@media (min-width: 1024px) {
+  .sheet-content {
+    padding-left: var(--gutter-desktop);
+    padding-right: var(--gutter-desktop);
+  }
+}
+
+/* ---------- Landlord identity ---------- */
+.landlord-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.avatar {
+  flex-shrink: 0;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--avatar-bg);
+  color: var(--ink-soft);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.landlord-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.landlord-name {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 21px;
+  color: var(--ink);
+}
+
+.landlord-sub {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 15.5px;
+  color: var(--ink-soft);
+}
+
+/* ---------- Phone / WhatsApp card ---------- */
+.phone-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-5) var(--space-4);
+  background: var(--phone-card-bg);
+  border: 1.5px solid var(--primary);
+  border-radius: var(--radius-card);
+  cursor: pointer;
+  transition: background-color 0.15s ease, transform 0.1s ease;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.phone-card:hover {
+  background-color: #E6EEE8;
+}
+
+.phone-card:active {
+  transform: scale(0.99);
+}
+
+.phone-card:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.phone-label {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 15.5px;
+  color: var(--ink-soft);
+}
+
+.phone-number {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 30px;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+}
+
+.phone-hint {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 14.5px;
+  color: var(--primary);
+  transition: color 0.15s ease;
+}
+
+.phone-hint.is-copied {
+  color: var(--primary-press);
+}
+
+/* ---------- Action buttons ---------- */
+.action-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+}
+
+.btn-call,
+.btn-whatsapp {
+  position: relative;
+  overflow: hidden;
+  height: 56px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 17px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.15s ease, transform 0.1s ease, border-color 0.15s ease;
+}
+
+.btn-call {
+  border: none;
+  background: var(--primary);
+  color: #FFFFFF;
+}
+
+.btn-call:hover {
+  background: var(--primary-press);
+}
+
+.btn-whatsapp {
+  border: 1.5px solid var(--primary);
+  background: var(--surface);
+  color: var(--primary);
+}
+
+.btn-whatsapp:hover {
+  background-color: #F1F6F2;
+}
+
+.btn-call:active,
+.btn-whatsapp:active {
+  transform: scale(0.97);
+}
+
+.btn-call:focus-visible,
+.btn-whatsapp:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+/* ---------- Footnote ---------- */
+.footnote {
+  margin: 0;
+  text-align: center;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 14.5px;
+  line-height: 1.45;
+  color: var(--ink-soft);
+}
+
+/* Ripple element created by JS */
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.35);
+  transform: scale(0);
+  animation: ripple-anim 0.6s ease-out;
+  pointer-events: none;
+}
+
+.btn-whatsapp .ripple {
+  background: rgba(45, 106, 79, 0.18);
+}
+
+@keyframes ripple-anim {
+  to {
+    transform: scale(2.8);
+    opacity: 0;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .sheet,
+  .phone-card,
+  .phone-hint,
+  .btn-call,
+  .btn-whatsapp,
+  .ripple {
+    transition: none;
+    animation: none;
+  }
+}
