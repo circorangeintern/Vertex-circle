@@ -1,0 +1,218 @@
+/* Unified List Property Wizard Styles (Steps 1 to 5) */
+.progress-track {
+  width: 100%;
+  height: 8px;
+  border-radius: var(--radius-pill);
+  background: var(--line);
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: var(--radius-pill);
+  background: var(--primary);
+  transition: width 0.3s ease;
+}
+
+.listing-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--section-gap);
+}
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.field-label {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 1.2;
+  color: var(--ink);
+}
+
+.field-input,
+.field-textarea {
+  width: 100%;
+  background: var(--surface);
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius-field);
+  font-family: var(--font-body);
+  font-size: 17px;
+  color: var(--ink);
+  padding: 0 var(--space-4);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.field-input {
+  height: 56px;
+}
+
+.field-textarea {
+  padding-top: var(--space-4);
+  padding-bottom: var(--space-4);
+  line-height: 1.55;
+  resize: vertical;
+  min-height: 160px;
+}
+
+.field-input:focus,
+.field-textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(45, 106, 79, 0.25);
+}
+
+.field-hint {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 15px;
+  color: var(--ink-soft);
+}
+
+.field-group.has-error .field-input,
+.field-group.has-error .field-textarea {
+  border-color: var(--error);
+  background: #FDF3F1;
+}
+
+.field-group.has-error .field-hint {
+  color: var(--error);
+}
+
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-4);
+  margin-top: 16px;
+}
+
+.photo-tile {
+  position: relative;
+  aspect-ratio: 1 / 0.92;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.photo-tile-add {
+  flex-direction: column;
+  gap: var(--space-2);
+  background: #EEF3F0;
+  border: 2px dashed var(--primary);
+  cursor: pointer;
+}
+
+.add-photo-label {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--primary);
+}
+
+.photo-tile-filled {
+  background: #EDE4D2;
+  overflow: hidden;
+}
+
+.photo-preview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.remove-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(38, 34, 28, 0.55);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.summary__card {
+  background-color: var(--surface);
+  border: 1px solid rgba(207, 199, 184, 0.55);
+  border-radius: 18px;
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+.summary__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.summary__label {
+  font-size: 12.5px;
+  color: var(--ink-soft);
+}
+
+.summary__value {
+  font-size: 19px;
+  font-weight: 700;
+}
+
+/* Unified Continue Bar across all 5 Steps */
+.continue-bar {
+  margin-top: auto;
+  padding: 16px 0;
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
+}
+
+.btn-primary {
+  width: 100%;
+  height: 56px;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: var(--primary);
+  color: #FFFFFF;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 17px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.15s ease, transform 0.1s ease, opacity 0.15s ease;
+  box-shadow: 0 4px 14px rgba(45, 106, 79, 0.25);
+}
+
+.btn-primary:hover {
+  background: var(--primary-press);
+}
+
+.btn-primary:active {
+  transform: scale(0.98);
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.btn-accent-submit {
+  background: var(--accent) !important;
+  box-shadow: 0 4px 14px rgba(198, 93, 59, 0.3) !important;
+}
+
+.btn-accent-submit:hover {
+  background: var(--accent-press) !important;
+}

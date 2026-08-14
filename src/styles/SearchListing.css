@@ -1,0 +1,141 @@
+/* Search listing detail screen CSS */
+.media {
+  position: relative;
+  height: 380px;
+  background: var(--media-placeholder);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: var(--radius-card);
+  overflow: hidden;
+}
+
+.media-placeholder {
+  display: inline-flex;
+}
+
+.icon-camera {
+  width: 44px;
+  height: 44px;
+}
+
+.media-dots {
+  position: absolute;
+  bottom: var(--space-5);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.dot.is-active {
+  background: #FFFFFF;
+  transform: scale(1.15);
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: var(--section-gap);
+  padding: 16px 0;
+}
+
+.price {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 1.12;
+  color: var(--ink);
+}
+
+.type {
+  margin: -12px 0 0;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 19px;
+  color: var(--ink-soft);
+}
+
+.location {
+  margin: -4px 0 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 15.5px;
+  color: #9A9184;
+}
+
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.chip {
+  height: 40px;
+  padding: 0 var(--space-4);
+  border-radius: var(--radius-pill);
+  background: #EDE4D2;
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 15.5px;
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.about-block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.about-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 1.2;
+  color: var(--ink);
+}
+
+.about-desc {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+
+.verified-note {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  background: #EEF3F0;
+  border-radius: 18px;
+  padding: var(--space-4);
+}
+
+.verified-note-text {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 15.5px;
+  line-height: 1.5;
+  color: var(--ink);
+}
