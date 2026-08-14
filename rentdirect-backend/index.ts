@@ -1,5 +1,5 @@
 import "dotenv/config";
-import { Hono } from "hono";
+import { Hono, type Context } from "hono";
 import { cors } from "hono/cors";
 import { logger } from "hono/logger";
 import { listingsRoute } from "./src/routes/listings";
@@ -10,28 +10,28 @@ const app = new Hono();
 
 app.use("*", logger());
 app.use(
-    "/api/auth/*",
+    "/api/*",
     cors({
-        origin: process.env.CLIENT_ORIGIN ?? "http://localhost:5173",
+        origin: process.env.CLIENT_ORIGIN ?? "*",
         credentials: true,
         allowHeaders: ["Content-Type", "Authorization"],
-        allowMethods: ["POST", "GET", "OPTIONS"],
+        allowMethods: ["POST", "GET", "PATCH", "PUT", "DELETE", "OPTIONS"],
     })
 );
 
 // ── Health check ────────────────────────────────────────────────
-app.get("/", (c) => c.text("RentDirect API is running"));
+app.get("/", (c: Context) => c.text("RentDirect API is running"));
 
 // ── Auth (Better Auth — reviewer/admin only) ───────────────────
-app.on(["POST", "GET"], "/api/auth/*", (c) => auth.handler(c.req.raw));
+app.on(["POST", "GET"], "/api/auth/*", (c: Context) => auth.handler(c.req.raw));
 
 // ── Listings (landlord/tenant — no login, token-based management) ─
 app.route("/api/listings", listingsRoute);
 
 // ── Errors ──────────────────────────────────────────────────────
-app.notFound((c) => errorResponse(c, Errors.notFound("Route")));
+app.notFound((c: Context) => errorResponse(c, Errors.notFound("Route")));
 
-app.onError((err, c) => {
+app.onError((err: Error | ApiException, c: Context) => {
     if (err instanceof ApiException) return errorResponse(c, err);
     console.error(err);
     return errorResponse(c, Errors.internal());

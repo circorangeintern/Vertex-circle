@@ -1,11 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { submitNewListing } from '../../services/api';
 import '../../styles/listStep.css';
 
 export default function ListingStep5() {
   const navigate = useNavigate();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    setIsSubmitting(true);
+
+    const step1Data = JSON.parse(localStorage.getItem('rentdirect_listing_step1') || '{}');
+    const step2Photos = JSON.parse(localStorage.getItem('rentdirect_listing_step2_photos') || '[]');
+    const step3Rent = localStorage.getItem('rentdirect.listing.step3') || '450000';
+
+    const payload = {
+      title: step1Data.title || 'Self-contained room in Yaba',
+      description: step1Data.description || 'Clean apartment in prime location',
+      phone: step1Data.phone || '08031234567',
+      rentAmount: parseInt(step3Rent, 10),
+      photos: step2Photos,
+      location: 'Yaba, Lagos',
+    };
+
+    const res = await submitNewListing(payload);
+    setIsSubmitting(false);
+
+    if (res && res.managementToken) {
+      localStorage.setItem('rentdirect_manage_token', res.managementToken);
+    }
+
     navigate('/success');
   };
 
@@ -51,7 +75,7 @@ export default function ListingStep5() {
               Edit
             </button>
           </div>
-          <p style={{ margin: 0, fontSize: '15px', fontWeight: 600 }}>3 property photos attached</p>
+          <p style={{ margin: 0, fontSize: '15px', fontWeight: 600 }}>Property photos attached</p>
         </div>
 
         {/* Card 3: Rent */}
@@ -90,9 +114,10 @@ export default function ListingStep5() {
             type="button"
             className="btn-primary btn-accent-submit"
             id="submitBtn"
+            disabled={isSubmitting}
             onClick={handleSubmit}
           >
-            <span className="btn-label">Submit for review</span>
+            <span className="btn-label">{isSubmitting ? 'Submitting…' : 'Submit for review'}</span>
           </button>
         </div>
       </div>
