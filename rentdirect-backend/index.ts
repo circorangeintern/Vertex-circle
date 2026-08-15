@@ -10,13 +10,13 @@ const app = new Hono();
 
 app.use("*", logger());
 app.use(
-    "/api/*",
-    cors({
-        origin: process.env.CLIENT_ORIGIN ?? "*",
-        credentials: true,
-        allowHeaders: ["Content-Type", "Authorization"],
-        allowMethods: ["POST", "GET", "PATCH", "PUT", "DELETE", "OPTIONS"],
-    })
+  "/api/*",
+  cors({
+    origin: process.env.CLIENT_ORIGIN ?? "http://localhost:3000",
+    credentials: true,
+    allowHeaders: ["Content-Type", "Authorization"],
+    allowMethods: ["POST", "GET", "PATCH", "PUT", "DELETE", "OPTIONS"],
+  })
 );
 
 // ── Health check ────────────────────────────────────────────────
