@@ -6,10 +6,6 @@ import Navbar from './Navbar';
 export default function Layout() {
   const location = useLocation();
 
-  // Route configurations for dynamic headers & footers
-  const hideFooterRoutes = ['/success', '/loading', '/empty', '/error', '/contact-reveal'];
-  const showFooter = !hideFooterRoutes.includes(location.pathname);
-
   const backHeaderRoutes = {
     '/how-it-works': 'How it works',
     '/admin': 'Admin Verification',
@@ -35,7 +31,7 @@ export default function Layout() {
         <Header showBack={isBackHeader} title={headerTitle} />
         <Outlet />
       </main>
-      {showFooter && <Navbar />}
     </div>
   );
 }
+

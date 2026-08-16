@@ -2,40 +2,22 @@ import { ALL_LISTINGS, getListingById } from '../data/listings';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://vertex-circle.onrender.com/api';
 
-const PENDING_STORAGE_KEY = 'rd_pending_listings';
-const APPROVED_STORAGE_KEY = 'rd_approved_listings';
+const EDITED_STORAGE_KEY = 'rd_edited_listings';
 
-function getLocalPendingListings() {
+function getLocalEditedListings() {
   try {
-    const raw = localStorage.getItem(PENDING_STORAGE_KEY);
-    return raw ? JSON.parse(raw) : [];
+    const raw = localStorage.getItem(EDITED_STORAGE_KEY);
+    return raw ? JSON.parse(raw) : {};
   } catch (e) {
-    return [];
+    return {};
   }
 }
 
-function saveLocalPendingListings(listings) {
+function saveLocalEditedListings(editedMap) {
   try {
-    localStorage.setItem(PENDING_STORAGE_KEY, JSON.stringify(listings));
+    localStorage.setItem(EDITED_STORAGE_KEY, JSON.stringify(editedMap));
   } catch (e) {
-    console.error('Failed to save local pending listings:', e);
-  }
-}
-
-function getLocalApprovedListings() {
-  try {
-    const raw = localStorage.getItem(APPROVED_STORAGE_KEY);
-    return raw ? JSON.parse(raw) : [];
-  } catch (e) {
-    return [];
-  }
-}
-
-function saveLocalApprovedListings(listings) {
-  try {
-    localStorage.setItem(APPROVED_STORAGE_KEY, JSON.stringify(listings));
-  } catch (e) {
-    console.error('Failed to save local approved listings:', e);
+    console.error('Failed to save local edited listings:', e);
   }
 }
 
@@ -64,26 +46,34 @@ export async function getListings(searchQuery = '') {
     console.warn('Backend API unavailable, using fallback listings:', error.message);
   }
 
-  // Combine backend listings, local approved custom listings, and ALL_LISTINGS
   const localApproved = getLocalApprovedListings();
+  const editedMap = getLocalEditedListings();
+
+  // Combine backend listings, local approved custom listings, and ALL_LISTINGS
   const combined = [...backendListings, ...localApproved, ...ALL_LISTINGS];
 
-  // Deduplicate by ID
+  // Deduplicate by ID & apply optimistic edits
   const uniqueListingsMap = new Map();
   combined.forEach(item => {
     if (item && item.id && !uniqueListingsMap.has(String(item.id))) {
-      uniqueListingsMap.set(String(item.id), {
-        id: String(item.id),
-        title: item.title || item.description?.substring(0, 40) || 'Apartment in Lagos',
-        price: item.price ? (typeof item.price === 'number' ? `₦${item.price.toLocaleString()}` : item.price) : '₦500,000',
-        location: item.location || (item.locationArea ? `${item.locationArea}, ${item.locationCity}` : 'Yaba, Lagos'),
-        verified: item.verified !== undefined ? item.verified : true,
+      const idStr = String(item.id);
+      const edits = editedMap[idStr] || {};
+
+      uniqueListingsMap.set(idStr, {
+        id: idStr,
+        title: edits.title || item.title || item.description?.substring(0, 40) || 'Apartment in Lagos',
+        price: edits.price || (item.price ? (typeof item.price === 'number' ? `₦${item.price.toLocaleString()}` : item.price) : '₦500,000'),
+        location: edits.location || item.location || (item.locationArea ? `${item.locationArea}, ${item.locationCity}` : 'Yaba, Lagos'),
+        verified: edits.verified !== undefined ? edits.verified : (item.verified !== undefined ? item.verified : true),
         photoCount: item.photoCount || (item.photoUrls ? item.photoUrls.length : (item.photos ? item.photos.length : 4)),
         image: item.image || (item.photoUrls && item.photoUrls[0]) || (item.photos && item.photos[0]?.url) || 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=80',
-        amenities: item.amenities || ['Self contained', '24/7 Water', 'Fenced yard'],
-        about: item.about || item.description || 'Verified property available directly from landlord.',
-        landlordName: item.landlordName || 'Property Host',
-        contactValue: item.contactValue || item.phone || '+234 803 123 4567',
+        photos: item.photos || [
+          { url: item.image || 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=80', label: 'Living room' }
+        ],
+        amenities: edits.amenities || item.amenities || ['Self contained', '24/7 Water', 'Fenced yard'],
+        about: edits.about || edits.description || item.about || item.description || 'Verified property available directly from landlord.',
+        landlordName: edits.landlordName || item.landlordName || item.landlord?.name || 'Property Host',
+        contactValue: edits.contactValue || edits.phone || item.contactValue || item.phone || item.landlord?.phone || '+234 803 123 4567',
         contactMethod: item.contactMethod || 'phone'
       });
     }
@@ -117,12 +107,18 @@ export async function getPendingListings() {
   }
 
   const localPending = getLocalPendingListings();
+  const editedMap = getLocalEditedListings();
   const combined = [...localPending, ...remotePending];
 
   const map = new Map();
   combined.forEach(item => {
     if (item && item.id && !map.has(String(item.id))) {
-      map.set(String(item.id), item);
+      const idStr = String(item.id);
+      const edits = editedMap[idStr] || {};
+      map.set(idStr, {
+        ...item,
+        ...edits
+      });
     }
   });
 
@@ -147,7 +143,7 @@ export async function reviewListing(id, reviewData) {
     console.warn('Backend review API call failed, using local update:', e.message);
   }
 
-  // Update local storage queues
+  // Update local storage queues optimistically
   const pending = getLocalPendingListings();
   const targetListing = pending.find(item => String(item.id) === String(id));
   const remainingPending = pending.filter(item => String(item.id) !== String(id));
@@ -167,27 +163,87 @@ export async function reviewListing(id, reviewData) {
 }
 
 /**
+ * Optimistically update a listing (Title, price, location, description, landlord contact, etc.)
+ */
+export async function updateListing(id, updatedFields) {
+  const idStr = String(id);
+  const editedMap = getLocalEditedListings();
+  const updatedObj = { ...(editedMap[idStr] || {}), ...updatedFields };
+  editedMap[idStr] = updatedObj;
+  
+  // 1. Optimistic local update
+  saveLocalEditedListings(editedMap);
+
+  // Also update in local approved or pending queue if present
+  const approved = getLocalApprovedListings();
+  const approvedIdx = approved.findIndex(item => String(item.id) === idStr);
+  if (approvedIdx !== -1) {
+    approved[approvedIdx] = { ...approved[approvedIdx], ...updatedFields };
+    saveLocalApprovedListings(approved);
+  }
+
+  const pending = getLocalPendingListings();
+  const pendingIdx = pending.findIndex(item => String(item.id) === idStr);
+  if (pendingIdx !== -1) {
+    pending[pendingIdx] = { ...pending[pendingIdx], ...updatedFields };
+    saveLocalPendingListings(pending);
+  }
+
+  // 2. Dispatch background API call to server
+  try {
+    const response = await fetch(`${API_BASE_URL}/listings/${idStr}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(updatedFields)
+    });
+    if (response.ok) {
+      return { success: true, updated: updatedObj, backendSynced: true };
+    }
+  } catch (error) {
+    console.warn(`Backend update call for ${idStr} failed/offline, using optimistic local state:`, error.message);
+  }
+
+  return { success: true, updated: updatedObj, backendSynced: false };
+}
+
+/**
  * Fetch a single listing by ID from backend or fallback
  */
 export async function getListingDetails(id) {
+  const idStr = String(id);
+  const editedMap = getLocalEditedListings();
+  const edits = editedMap[idStr] || {};
+
+  let baseListing = null;
+
   try {
-    const response = await fetch(`${API_BASE_URL}/listings/${id}`);
+    const response = await fetch(`${API_BASE_URL}/listings/${idStr}`);
     if (response.ok) {
       const data = await response.json();
       if (data && (data.id || data.listing)) {
-        return data.listing || data;
+        baseListing = data.listing || data;
       }
     }
   } catch (error) {
-    console.warn(`Backend API unavailable for listing ${id}:`, error.message);
+    console.warn(`Backend API unavailable for listing ${idStr}:`, error.message);
   }
 
-  // Check local approved listings first
-  const localApproved = getLocalApprovedListings();
-  const foundLocal = localApproved.find(item => String(item.id) === String(id));
-  if (foundLocal) return foundLocal;
+  if (!baseListing) {
+    const localApproved = getLocalApprovedListings();
+    baseListing = localApproved.find(item => String(item.id) === idStr) || getListingById(idStr);
+  }
 
-  return getListingById(id);
+  return {
+    ...baseListing,
+    ...edits,
+    id: idStr,
+    title: edits.title || baseListing.title || 'Apartment in Lagos',
+    price: edits.price || (typeof baseListing.price === 'number' ? `₦${baseListing.price.toLocaleString()}` : baseListing.price),
+    location: edits.location || baseListing.location,
+    about: edits.about || edits.description || baseListing.about || baseListing.description,
+    landlordName: edits.landlordName || baseListing.landlordName || baseListing.landlord?.name,
+    contactValue: edits.contactValue || edits.phone || baseListing.contactValue || baseListing.phone || baseListing.landlord?.phone
+  };
 }
 
 /**
@@ -254,3 +310,4 @@ export async function submitNewListing(listingData) {
     message: 'Property submitted for review',
   };
 }
+

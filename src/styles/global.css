@@ -144,7 +144,7 @@ button, input, textarea, select, .btn-label, .chip, .nav-item {
   max-width: 1280px;
   margin: 0 auto;
   padding: var(--space-6) var(--gutter-mobile) var(--space-6);
-  padding-bottom: 96px; /* clears mobile bottom nav */
+  padding-bottom: var(--space-6);
   display: flex;
   flex-direction: column;
   gap: var(--section-gap);
@@ -153,7 +153,7 @@ button, input, textarea, select, .btn-label, .chip, .nav-item {
 @media (min-width: 768px) {
   .screen {
     padding: 32px var(--gutter-desktop) 48px;
-    padding-bottom: 48px; /* standard desktop bottom spacing */
+    padding-bottom: 48px;
   }
 }
 
@@ -189,6 +189,12 @@ button, input, textarea, select, .btn-label, .chip, .nav-item {
   display: flex;
   align-items: center;
   gap: var(--space-3);
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 
 .brand {
@@ -246,7 +252,7 @@ button, input, textarea, select, .btn-label, .chip, .nav-item {
 .desktop-header-nav {
   display: none;
   align-items: center;
-  gap: 28px;
+  gap: 20px;
 }
 
 .desktop-nav-link {
@@ -280,7 +286,7 @@ button, input, textarea, select, .btn-label, .chip, .nav-item {
   font-family: var(--font-body);
   font-weight: 600;
   font-size: 14.5px;
-  padding: 12px 22px;
+  padding: 10px 20px;
   border-radius: var(--radius-pill);
   cursor: pointer;
   box-shadow: 0 4px 14px rgba(198, 93, 59, 0.25);
@@ -295,6 +301,12 @@ button, input, textarea, select, .btn-label, .chip, .nav-item {
 
 .btn-accent:active {
   transform: scale(0.97);
+}
+
+@media (max-width: 480px) {
+  .header-list-btn {
+    display: none;
+  }
 }
 
 .back-btn {
@@ -321,58 +333,186 @@ button, input, textarea, select, .btn-label, .chip, .nav-item {
   color: var(--ink);
 }
 
-/* Footer / Navigation */
-.app-footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
+/* Hamburger Button Styling */
+.hamburger-btn {
+  width: 44px;
+  height: 44px;
+  padding: 0;
   background: var(--surface);
-  border-top: 1px solid var(--line);
-  z-index: 100;
-}
-
-.bottom-nav {
+  border: 1.5px solid var(--line);
+  border-radius: 14px;
   display: flex;
   align-items: center;
-  justify-content: space-around;
-  padding: 8px 16px 12px;
-  max-width: 600px;
-  margin: 0 auto;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
 }
 
-.nav-item {
-  background: none;
-  border: none;
+.hamburger-btn:hover {
+  border-color: var(--primary);
+  background: rgba(45, 106, 79, 0.05);
+}
+
+.hamburger-btn:active {
+  transform: scale(0.95);
+}
+
+.hamburger-box {
+  width: 22px;
+  height: 16px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hamburger-inner,
+.hamburger-inner::before,
+.hamburger-inner::after {
+  width: 20px;
+  height: 2.2px;
+  background-color: var(--ink);
+  border-radius: 4px;
+  position: absolute;
+  transition: transform 0.22s cubic-bezier(0.55, 0.055, 0.675, 0.19), background-color 0.15s ease;
+}
+
+.hamburger-inner {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.hamburger-inner::before {
+  content: "";
+  top: -6px;
+}
+
+.hamburger-inner::after {
+  content: "";
+  bottom: -6px;
+}
+
+.hamburger-btn.is-active .hamburger-inner {
+  transform: rotate(45deg);
+}
+
+.hamburger-btn.is-active .hamburger-inner::before {
+  top: 0;
+  opacity: 0;
+}
+
+.hamburger-btn.is-active .hamburger-inner::after {
+  bottom: 0;
+  transform: rotate(-90deg);
+}
+
+/* Hamburger Drawer Navigation Overlay */
+.hamburger-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(38, 34, 28, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  display: flex;
+  justify-content: flex-end;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.hamburger-drawer {
+  width: 100%;
+  max-width: 320px;
+  height: 100%;
+  background: var(--surface);
+  box-shadow: -8px 0 32px rgba(0, 0, 0, 0.15);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  color: var(--ink-soft);
-  font-size: 12px;
-  font-family: var(--font-body);
-  font-weight: 500;
-  cursor: pointer;
-  padding: 6px 16px;
-  border-radius: 12px;
-  transition: color 0.15s ease, background-color 0.15s ease;
+  justify-content: space-between;
+  padding: 24px 20px;
+  animation: slideDrawer 0.25s ease-out;
 }
 
-.nav-item.is-active, .nav-item:hover {
-  color: var(--primary);
-  background: rgba(45, 106, 79, 0.06);
-}
-
-.nav-item .icon {
-  width: 22px;
-  height: 22px;
-}
-
-/* On Desktop screens (>= 768px), hide bottom nav bar since top nav links are available */
-@media (min-width: 768px) {
-  .app-footer {
-    display: none;
+@keyframes slideDrawer {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
   }
 }
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--line);
+}
+
+.drawer-close-btn {
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  color: var(--ink);
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.15s ease;
+}
+
+.drawer-close-btn:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.drawer-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 24px;
+  flex: 1;
+}
+
+.drawer-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  border-radius: 16px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ink);
+  text-decoration: none;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.drawer-nav-item:hover,
+.drawer-nav-item.active {
+  background: rgba(45, 106, 79, 0.08);
+  color: var(--primary);
+}
+
+.drawer-icon {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+}
+
+.drawer-footer {
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+
 

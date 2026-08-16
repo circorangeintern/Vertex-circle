@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getPendingListings, reviewListing } from '../services/api';
+import { getPendingListings, reviewListing, updateListing } from '../services/api';
 import '../styles/admin.css';
 
 export default function Admin() {
@@ -14,6 +14,15 @@ export default function Admin() {
   const [rejectedCount, setRejectedCount] = useState(1);
   const [loading, setLoading] = useState(true);
   const [toast, setToast] = useState(null);
+
+  // Modal for editing property details optimistically
+  const [editingListing, setEditingListing] = useState(null);
+  const [editTitle, setEditTitle] = useState('');
+  const [editPrice, setEditPrice] = useState('');
+  const [editLocation, setEditLocation] = useState('');
+  const [editLandlordName, setEditLandlordName] = useState('');
+  const [editPhone, setEditPhone] = useState('');
+  const [editAbout, setEditAbout] = useState('');
 
   // Check if session passcode was already entered
   useEffect(() => {
@@ -68,30 +77,75 @@ export default function Admin() {
     }, 4000);
   };
 
+  // Optimistic Approve Action
   const handleApprove = async (listing) => {
+    // 1. Immediate optimistic UI update
+    setPendingListings(prev => prev.filter(item => item.id !== listing.id));
+    setApprovedCount(prev => prev + 1);
+    showToast('✓ Property verified and published live optimistically!');
+
+    // 2. Dispatch background review API call
     await reviewListing(listing.id, {
       decision: 'approved',
       reviewerName: 'Admin Team',
       checklistPassed: listing.checklist || { phone: true, address: true, photos: true },
       notes: 'Verified by Admin'
     });
-
-    setApprovedCount(prev => prev + 1);
-    showToast('Property verified and published to home page');
-    fetchData();
   };
 
+  // Optimistic Reject Action
   const handleReject = async (listing) => {
+    // 1. Immediate optimistic UI update
+    setPendingListings(prev => prev.filter(item => item.id !== listing.id));
+    setRejectedCount(prev => prev + 1);
+    showToast('Listing rejected');
+
+    // 2. Dispatch background review API call
     await reviewListing(listing.id, {
       decision: 'rejected',
       reviewerName: 'Admin Team',
       checklistPassed: {},
       notes: 'Listing rejected during review'
     });
+  };
 
-    setRejectedCount(prev => prev + 1);
-    showToast('Listing rejected');
-    fetchData();
+  // Open Edit Modal
+  const handleOpenEdit = (listing) => {
+    setEditingListing(listing);
+    setEditTitle(listing.title || '');
+    setEditPrice(listing.price || '');
+    setEditLocation(listing.location || '');
+    setEditLandlordName(listing.landlordName || listing.landlord?.name || '');
+    setEditPhone(listing.contactValue || listing.phone || '');
+    setEditAbout(listing.about || listing.description || '');
+  };
+
+  // Save Edits Optimistically
+  const handleSaveEdit = (e) => {
+    e.preventDefault();
+    if (!editingListing) return;
+
+    const updatedFields = {
+      title: editTitle,
+      price: editPrice,
+      location: editLocation,
+      landlordName: editLandlordName,
+      contactValue: editPhone,
+      phone: editPhone,
+      about: editAbout,
+      description: editAbout
+    };
+
+    // 1. Immediate optimistic update in pendingListings state array
+    setPendingListings(prev =>
+      prev.map(item => item.id === editingListing.id ? { ...item, ...updatedFields } : item)
+    );
+
+    // 2. Call API service for optimistic update & storage
+    updateListing(editingListing.id, updatedFields);
+
+    showToast('Property updated optimistically!');
+    setEditingListing(null);
   };
 
   if (!isAuthenticated) {
@@ -218,7 +272,17 @@ export default function Admin() {
                         {item.price} &middot; {item.location}
                       </p>
                     </div>
-                    <span className="status-badge status-pending">PENDING</span>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <span className="status-badge status-pending">PENDING</span>
+                      <button
+                        type="button"
+                        className="btn-edit-small"
+                        onClick={() => handleOpenEdit(item)}
+                        title="Edit Property Details"
+                      >
+                        ✏️ Edit
+                      </button>
+                    </div>
                   </div>
 
                   {/* Landlord Contact Info */}
@@ -286,6 +350,97 @@ export default function Admin() {
           </div>
         )}
       </section>
+
+      {/* Property Edit Modal */}
+      {editingListing && (
+        <div className="modal-overlay" onClick={() => setEditingListing(null)}>
+          <form className="edit-modal-card" onClick={(e) => e.stopPropagation()} onSubmit={handleSaveEdit}>
+            <div className="modal-header">
+              <h2 className="modal-title">Edit Property Details (Optimistic)</h2>
+              <button type="button" className="modal-close" onClick={() => setEditingListing(null)}>✕</button>
+            </div>
+
+            <div className="modal-body">
+              <div className="form-group">
+                <label className="form-label">Property Title</label>
+                <input
+                  type="text"
+                  className="modal-input"
+                  value={editTitle}
+                  onChange={(e) => setEditTitle(e.target.value)}
+                  required
+                />
+              </div>
+
+              <div className="form-row">
+                <div className="form-group">
+                  <label className="form-label">Price</label>
+                  <input
+                    type="text"
+                    className="modal-input"
+                    value={editPrice}
+                    onChange={(e) => setEditPrice(e.target.value)}
+                    required
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label className="form-label">Location</label>
+                  <input
+                    type="text"
+                    className="modal-input"
+                    value={editLocation}
+                    onChange={(e) => setEditLocation(e.target.value)}
+                    required
+                  />
+                </div>
+              </div>
+
+              <div className="form-row">
+                <div className="form-group">
+                  <label className="form-label">Landlord Name</label>
+                  <input
+                    type="text"
+                    className="modal-input"
+                    value={editLandlordName}
+                    onChange={(e) => setEditLandlordName(e.target.value)}
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label className="form-label">Landlord Phone / WhatsApp</label>
+                  <input
+                    type="text"
+                    className="modal-input"
+                    value={editPhone}
+                    onChange={(e) => setEditPhone(e.target.value)}
+                  />
+                </div>
+              </div>
+
+              <div className="form-group">
+                <label className="form-label">Description / About</label>
+                <textarea
+                  className="modal-textarea"
+                  rows={3}
+                  value={editAbout}
+                  onChange={(e) => setEditAbout(e.target.value)}
+                />
+              </div>
+            </div>
+
+            <div className="modal-footer">
+              <button type="button" className="btn-secondary" onClick={() => setEditingListing(null)}>
+                Cancel
+              </button>
+              <button type="submit" className="btn-primary" style={{ padding: '0 24px', height: '44px' }}>
+                Save Changes Optimistically
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
     </div>
   );
 }
+
