@@ -147,10 +147,13 @@ export default function Home() {
               )}
 
               <img 
-                src={item.image || (item.photos && item.photos[0]?.url) || 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=80'} 
+                src={item.image || (item.photos && item.photos[0]?.url) || 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=600&q=75'} 
                 alt={item.title} 
+                loading="eager"
+                decoding="async"
                 style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
               />
+
 
               <span className="badge badge-photos">{item.photoCount || (item.photos ? item.photos.length : 5)} photos</span>
             </div>

@@ -8,15 +8,15 @@ export const ALL_LISTINGS = [
     location: 'Behind First Bank, Yaba, Lagos',
     listedTime: 'Listed 2 days ago',
     verified: true,
-    about: 'A clean self-contained room with its own bathroom and kitchen space. Water runs every day. The compound is gated and locked by 11pm. One year rent in advance.',
+    about: 'A clean self-contained room with its own bathroom and kitchen space. Water runs every day. The compound is gated and locked by 11pm. One year rent advance.',
     amenities: ['Own bath', 'Prepaid meter', 'Tiled floor', 'Gated compound', 'Water supply'],
     landlord: { name: 'Mr. Adebayo O.', phone: '0803 456 7890', role: 'Landlord' },
     photos: [
-      { url: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=1200&q=80', label: 'Living Room & Bedroom' },
-      { url: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=80', label: 'Kitchen Space' },
-      { url: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1200&q=80', label: 'Private Bathroom' },
-      { url: 'https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&w=1200&q=80', label: 'Balcony View' },
-      { url: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1200&q=80', label: 'Gated Entrance' },
+      { url: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=600&q=75', label: 'Living Room & Bedroom' },
+      { url: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=600&q=75', label: 'Kitchen Space' },
+      { url: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=600&q=75', label: 'Private Bathroom' },
+      { url: 'https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&w=600&q=75', label: 'Balcony View' },
+      { url: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=600&q=75', label: 'Gated Entrance' },
     ],
   },
   {
@@ -32,11 +32,11 @@ export const ALL_LISTINGS = [
     amenities: ['2 Bedrooms', 'POP Ceiling', 'Car Park', 'Separate Meter', 'Constant Water'],
     landlord: { name: 'Mrs. Chinyere K.', phone: '0802 111 2233', role: 'Landlord' },
     photos: [
-      { url: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=1200&q=80', label: 'Main Living Room' },
-      { url: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=80', label: 'Modern Kitchen' },
-      { url: 'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=1200&q=80', label: 'Master Bedroom' },
-      { url: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1200&q=80', label: 'Bathroom' },
-      { url: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80', label: 'Exterior View' },
+      { url: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=600&q=75', label: 'Main Living Room' },
+      { url: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=600&q=75', label: 'Modern Kitchen' },
+      { url: 'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=600&q=75', label: 'Master Bedroom' },
+      { url: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=600&q=75', label: 'Bathroom' },
+      { url: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=600&q=75', label: 'Exterior View' },
     ],
   },
   {
@@ -52,10 +52,10 @@ export const ALL_LISTINGS = [
     amenities: ['1 Bedroom', 'Separate Living Room', 'Secured Estate', 'Prepaid Meter'],
     landlord: { name: 'Mr. Babatunde A.', phone: '0805 777 8899', role: 'Landlord' },
     photos: [
-      { url: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1200&q=80', label: 'Living Room' },
-      { url: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=1200&q=80', label: 'Bedroom' },
-      { url: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=80', label: 'Kitchenette' },
-      { url: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1200&q=80', label: 'Bathroom' },
+      { url: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=600&q=75', label: 'Living Room' },
+      { url: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=600&q=75', label: 'Bedroom' },
+      { url: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=600&q=75', label: 'Kitchenette' },
+      { url: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=600&q=75', label: 'Bathroom' },
     ],
   },
   {
@@ -71,9 +71,9 @@ export const ALL_LISTINGS = [
     amenities: ['Personal Toilet', 'Balcony', 'Tiled Floor', 'Prepaid Meter'],
     landlord: { name: 'Mr. David E.', phone: '0809 333 4455', role: 'Landlord' },
     photos: [
-      { url: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=80', label: 'Main Room' },
-      { url: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1200&q=80', label: 'Toilet & Shower' },
-      { url: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=1200&q=80', label: 'Room Entrance' },
+      { url: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=600&q=75', label: 'Main Room' },
+      { url: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=600&q=75', label: 'Toilet & Shower' },
+      { url: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=600&q=75', label: 'Room Entrance' },
     ],
   },
   {
@@ -89,11 +89,11 @@ export const ALL_LISTINGS = [
     amenities: ['24/7 Power', 'Swimming Pool', 'Fitted Kitchen', 'Secured Estate', 'Water Treatment'],
     landlord: { name: 'Chief Ogunleye', phone: '0801 999 0000', role: 'Landlord' },
     photos: [
-      { url: 'https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&w=1200&q=80', label: 'Duplex Living Room' },
-      { url: 'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=1200&q=80', label: 'Upper Bedroom' },
-      { url: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=80', label: 'Fitted Kitchen' },
-      { url: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1200&q=80', label: 'Luxury Bath' },
-      { url: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80', label: 'Exterior Compound' },
+      { url: 'https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&w=600&q=75', label: 'Duplex Living Room' },
+      { url: 'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=600&q=75', label: 'Upper Bedroom' },
+      { url: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=600&q=75', label: 'Fitted Kitchen' },
+      { url: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=600&q=75', label: 'Luxury Bath' },
+      { url: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=600&q=75', label: 'Exterior Compound' },
     ],
   },
   {
@@ -109,9 +109,9 @@ export const ALL_LISTINGS = [
     amenities: ['Near Campus', 'Constant Water', 'Tiled Floor', 'Gated Compound'],
     landlord: { name: 'Mr. Adebayo O.', phone: '0803 456 7890', role: 'Landlord' },
     photos: [
-      { url: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1200&q=80', label: 'Room Space' },
-      { url: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=80', label: 'Kitchen Corner' },
-      { url: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=1200&q=80', label: 'Bathroom' },
+      { url: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=600&q=75', label: 'Room Space' },
+      { url: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=600&q=75', label: 'Kitchen Corner' },
+      { url: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=600&q=75', label: 'Bathroom' },
     ],
   },
   {
@@ -127,9 +127,9 @@ export const ALL_LISTINGS = [
     amenities: ['All Rooms En-suite', 'Wardrobes', 'Car Parking', 'Borehole Water'],
     landlord: { name: 'Engr. Kenneth M.', phone: '0806 444 5566', role: 'Landlord' },
     photos: [
-      { url: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80', label: 'Living Room' },
-      { url: 'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=1200&q=80', label: 'Bedroom 1' },
-      { url: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=80', label: 'Kitchen' },
+      { url: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=600&q=75', label: 'Living Room' },
+      { url: 'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=600&q=75', label: 'Bedroom 1' },
+      { url: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=600&q=75', label: 'Kitchen' },
     ],
   },
   {
@@ -145,9 +145,9 @@ export const ALL_LISTINGS = [
     amenities: ['Ocean View', 'Elevator', '24/7 Generator', 'Gym', 'Secured Gate'],
     landlord: { name: 'Dr. (Mrs) Alabi', phone: '0807 222 3344', role: 'Landlord' },
     photos: [
-      { url: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80', label: 'Spacious Sitting Room' },
-      { url: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=1200&q=80', label: 'Dining Area' },
-      { url: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=80', label: 'Chef Kitchen' },
+      { url: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=75', label: 'Spacious Sitting Room' },
+      { url: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=600&q=75', label: 'Dining Area' },
+      { url: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=600&q=75', label: 'Chef Kitchen' },
     ],
   },
   {
@@ -163,8 +163,8 @@ export const ALL_LISTINGS = [
     amenities: ['1 Bedroom', 'Sitting Room', 'Easy Transport Access', 'Prepaid Meter'],
     landlord: { name: 'Mr. Adebayo O.', phone: '0803 456 7890', role: 'Landlord' },
     photos: [
-      { url: 'https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?auto=format&fit=crop&w=1200&q=80', label: 'Living Room' },
-      { url: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=1200&q=80', label: 'Bedroom' },
+      { url: 'https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?auto=format&fit=crop&w=600&q=75', label: 'Living Room' },
+      { url: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=600&q=75', label: 'Bedroom' },
     ],
   },
   {
@@ -180,8 +180,8 @@ export const ALL_LISTINGS = [
     amenities: ['Water Heater', 'Kitchen Extractor', 'Dedicated Transformer', 'Security Guard'],
     landlord: { name: 'Pastor Williams', phone: '0808 666 5544', role: 'Landlord' },
     photos: [
-      { url: 'https://images.unsplash.com/photo-1536376072261-38c75010e6c9?auto=format&fit=crop&w=1200&q=80', label: 'Studio Interior' },
-      { url: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=80', label: 'Kitchen' },
+      { url: 'https://images.unsplash.com/photo-1536376072261-38c75010e6c9?auto=format&fit=crop&w=600&q=75', label: 'Studio Interior' },
+      { url: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=600&q=75', label: 'Kitchen' },
     ],
   },
   {
@@ -197,8 +197,8 @@ export const ALL_LISTINGS = [
     amenities: ['AC Installed', 'Underground Parking', '24/7 Security', 'Swimming Pool'],
     landlord: { name: 'Mr. Femi B.', phone: '0802 888 9900', role: 'Landlord' },
     photos: [
-      { url: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80', label: 'Living Room' },
-      { url: 'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=1200&q=80', label: 'En-suite Bedroom' },
+      { url: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=600&q=75', label: 'Living Room' },
+      { url: 'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=600&q=75', label: 'En-suite Bedroom' },
     ],
   },
   {
@@ -214,8 +214,8 @@ export const ALL_LISTINGS = [
     amenities: ['Central Location', 'Personal Bath', 'Tiled Floor'],
     landlord: { name: 'Mama Shade', phone: '0803 123 9876', role: 'Landlord' },
     photos: [
-      { url: 'https://images.unsplash.com/photo-1554995207-c18c203602cb?auto=format&fit=crop&w=1200&q=80', label: 'Room Space' },
-      { url: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1200&q=80', label: 'Bathroom' },
+      { url: 'https://images.unsplash.com/photo-1554995207-c18c203602cb?auto=format&fit=crop&w=600&q=75', label: 'Room Space' },
+      { url: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=600&q=75', label: 'Bathroom' },
     ],
   },
   {
@@ -231,8 +231,8 @@ export const ALL_LISTINGS = [
     amenities: ['GRA Location', 'Paved Compound', 'Running Water', 'Security Guard'],
     landlord: { name: 'Mr. Adebayo O.', phone: '0803 456 7890', role: 'Landlord' },
     photos: [
-      { url: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=80', label: 'Living Room' },
-      { url: 'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=1200&q=80', label: 'Bedroom' },
+      { url: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=600&q=75', label: 'Living Room' },
+      { url: 'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=600&q=75', label: 'Bedroom' },
     ],
   },
   {
@@ -248,8 +248,8 @@ export const ALL_LISTINGS = [
     amenities: ['Balcony', 'Private Meter', 'Gated Estate'],
     landlord: { name: 'Alhaji Danjuma', phone: '0805 444 3322', role: 'Landlord' },
     photos: [
-      { url: 'https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=1200&q=80', label: 'Room Space' },
-      { url: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=80', label: 'Kitchenette' },
+      { url: 'https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=600&q=75', label: 'Room Space' },
+      { url: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=600&q=75', label: 'Kitchenette' },
     ],
   },
 ];

@@ -98,8 +98,11 @@ export default function ListDetail() {
         <img
           src={photos[activePhotoIdx]?.url || photos[0]?.url}
           alt={photos[activePhotoIdx]?.label || listing.title}
+          loading="eager"
+          decoding="async"
           style={{ width: '100%', height: '100%', objectFit: 'cover' }}
         />
+
 
         {/* Previous & Next Arrow Overlay */}
         {photos.length > 1 && (

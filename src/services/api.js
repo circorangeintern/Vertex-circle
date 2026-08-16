@@ -2,7 +2,43 @@ import { ALL_LISTINGS, getListingById } from '../data/listings';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://vertex-circle.onrender.com/api';
 
+const PENDING_STORAGE_KEY = 'rd_pending_listings';
+const APPROVED_STORAGE_KEY = 'rd_approved_listings';
 const EDITED_STORAGE_KEY = 'rd_edited_listings';
+
+function getLocalPendingListings() {
+  try {
+    const raw = localStorage.getItem(PENDING_STORAGE_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch (e) {
+    return [];
+  }
+}
+
+function saveLocalPendingListings(listings) {
+  try {
+    localStorage.setItem(PENDING_STORAGE_KEY, JSON.stringify(listings));
+  } catch (e) {
+    console.error('Failed to save local pending listings:', e);
+  }
+}
+
+function getLocalApprovedListings() {
+  try {
+    const raw = localStorage.getItem(APPROVED_STORAGE_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch (e) {
+    return [];
+  }
+}
+
+function saveLocalApprovedListings(listings) {
+  try {
+    localStorage.setItem(APPROVED_STORAGE_KEY, JSON.stringify(listings));
+  } catch (e) {
+    console.error('Failed to save local approved listings:', e);
+  }
+}
 
 function getLocalEditedListings() {
   try {
@@ -21,6 +57,7 @@ function saveLocalEditedListings(editedMap) {
   }
 }
 
+
 /**
  * Fetch verified published listings from Hono backend API with fallback to local storage & dataset
  */
@@ -31,7 +68,12 @@ export async function getListings(searchQuery = '') {
       ? `${API_BASE_URL}/listings?area=${encodeURIComponent(searchQuery)}`
       : `${API_BASE_URL}/listings`;
     
-    const response = await fetch(url);
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 1000);
+
+    const response = await fetch(url, { signal: controller.signal });
+    clearTimeout(timeoutId);
+
     if (response.ok) {
       const data = await response.json();
       if (Array.isArray(data)) {
@@ -43,8 +85,9 @@ export async function getListings(searchQuery = '') {
       }
     }
   } catch (error) {
-    console.warn('Backend API unavailable, using fallback listings:', error.message);
+    console.warn('Backend API fetch timed out or unavailable, using instant fallback listings:', error.message);
   }
+
 
   const localApproved = getLocalApprovedListings();
   const editedMap = getLocalEditedListings();
@@ -217,7 +260,12 @@ export async function getListingDetails(id) {
   let baseListing = null;
 
   try {
-    const response = await fetch(`${API_BASE_URL}/listings/${idStr}`);
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 1000);
+
+    const response = await fetch(`${API_BASE_URL}/listings/${idStr}`, { signal: controller.signal });
+    clearTimeout(timeoutId);
+
     if (response.ok) {
       const data = await response.json();
       if (data && (data.id || data.listing)) {
@@ -225,8 +273,9 @@ export async function getListingDetails(id) {
       }
     }
   } catch (error) {
-    console.warn(`Backend API unavailable for listing ${idStr}:`, error.message);
+    console.warn(`Backend API unavailable or timed out for listing ${idStr}:`, error.message);
   }
+
 
   if (!baseListing) {
     const localApproved = getLocalApprovedListings();
