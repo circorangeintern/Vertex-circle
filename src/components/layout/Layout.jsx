@@ -12,6 +12,7 @@ export default function Layout() {
 
   const backHeaderRoutes = {
     '/how-it-works': 'How it works',
+    '/admin': 'Admin Verification',
     '/search': 'Search homes',
     '/search-listing': 'Homes in Yaba',
     '/list/step-1': 'List your property',

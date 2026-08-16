@@ -136,52 +136,56 @@ export default function ListDetail() {
       </div>
 
       {/* Main Content Area */}
-      <div className="main-content">
-        <section className="price-section">
-          <h1 className="price-heading">
-            {listing.price.split(' ')[0]} <span className="price-period">/ year</span>
-          </h1>
-          <h2 className="sub-heading">{listing.title}</h2>
-          <div className="location-row">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 21C16 17 20 13.4183 20 10C20 5.58172 16.4183 2 12 2C7.58172 2 4 5.58172 4 10C4 13.4183 8 17 12 21Z" stroke="#5C554A" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-              <path d="M12 12C13.1046 12 14 11.1046 14 10C14 8.89543 13.1046 8 12 8C10.8954 8 10 8.89543 10 10C10 11.1046 10.8954 12 12 12Z" stroke="#5C554A" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-            <span className="location-text">{listing.location}</span>
-          </div>
-        </section>
-
-        {/* Amenity Chips */}
-        <section className="chips-section">
-          {listing.amenities.map((item, i) => (
-            <div key={i} className="chip">{item}</div>
-          ))}
-        </section>
-
-        {/* About Section */}
-        <section className="about-section">
-          <h3 className="section-title">About this home</h3>
-          <p className="about-text">{listing.about}</p>
-
-          <div className="info-card">
-            <div className="info-card-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M9 12L11 14L15 10M12 3L19 6V11C19 15.55 15.84 19.74 12 21C8.16 19.74 5 15.55 5 11V6L12 3Z" stroke="#2D6A4F" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+      <div className="detail-container">
+        <div className="detail-main">
+          <section className="price-section">
+            <h1 className="price-heading">
+              {listing.price.split(' ')[0]} <span className="price-period">/ year</span>
+            </h1>
+            <h2 className="sub-heading">{listing.title}</h2>
+            <div className="location-row">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 21C16 17 20 13.4183 20 10C20 5.58172 16.4183 2 12 2C7.58172 2 4 5.58172 4 10C4 13.4183 8 17 12 21Z" stroke="#5C554A" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M12 12C13.1046 12 14 11.1046 14 10C14 8.89543 13.1046 8 12 8C10.8954 8 10 8.89543 10 10C10 11.1046 10.8954 12 12 12Z" stroke="#5C554A" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
+              <span className="location-text">{listing.location}</span>
             </div>
-            <p className="info-card-text">
-              Verified — our team checked this listing on 12 July 2026. Still, visit the property before you pay anything.
-            </p>
-          </div>
-        </section>
+          </section>
 
-        <button
-          className="primary-cta-btn"
-          id="contactBtn"
-          onClick={() => navigate('/contact-reveal')}
-        >
-          Show Landlord's contact
-        </button>
+          {/* Amenity Chips */}
+          <section className="chips-section">
+            {listing.amenities.map((item, i) => (
+              <div key={i} className="chip">{item}</div>
+            ))}
+          </section>
+
+          {/* About Section */}
+          <section className="about-section">
+            <h3 className="section-title">About this home</h3>
+            <p className="about-text">{listing.about}</p>
+
+            <div className="info-card">
+              <div className="info-card-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M9 12L11 14L15 10M12 3L19 6V11C19 15.55 15.84 19.74 12 21C8.16 19.74 5 15.55 5 11V6L12 3Z" stroke="#2D6A4F" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </div>
+              <p className="info-card-text">
+                Verified — our team checked this listing on 12 July 2026. Still, visit the property before you pay anything.
+              </p>
+            </div>
+          </section>
+        </div>
+
+        <div className="detail-sidebar">
+          <button
+            className="primary-cta-btn"
+            id="contactBtn"
+            onClick={() => navigate('/contact-reveal')}
+          >
+            Show Landlord's contact
+          </button>
+        </div>
       </div>
 
       {/* Full-Screen "View All Room Photos" Gallery Modal */}

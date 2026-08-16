@@ -24,6 +24,8 @@ import Loading from './pages/states/Loading';
 import Empty from './pages/states/Empty';
 import Error from './pages/states/Error';
 
+import Admin from './pages/Admin';
+
 export default function App() {
   return (
     <BrowserRouter>
@@ -39,6 +41,7 @@ export default function App() {
           <Route path="/listing/:id" element={<ListDetail />} />
           <Route path="/contact-reveal" element={<ContactReveal />} />
           <Route path="/how-it-works" element={<HowItWorks />} />
+          <Route path="/admin" element={<Admin />} />
           
           {/* Multi-step property creation wizard */}
           <Route path="/list/step-1" element={<ListStep1 />} />

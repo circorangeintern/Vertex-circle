@@ -145,9 +145,23 @@
 }
 
 .listing-grid {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr;
   gap: var(--space-5);
+}
+
+@media (min-width: 640px) {
+  .listing-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .listing-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
 }
 
 .listing-card {
@@ -156,12 +170,15 @@
   overflow: hidden;
   box-shadow: var(--shadow-card);
   cursor: pointer;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .listing-card:hover {
-  box-shadow: 0 2px 6px rgba(38, 34, 28, 0.06), 0 10px 24px rgba(38, 34, 28, 0.09);
-  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(38, 34, 28, 0.08), 0 14px 32px rgba(38, 34, 28, 0.12);
+  transform: translateY(-3px);
 }
 
 .listing-card:active {
@@ -170,7 +187,7 @@
 
 .listing-media {
   position: relative;
-  height: 340px;
+  height: 240px;
   background: var(--media-placeholder);
   display: flex;
   align-items: center;
@@ -227,6 +244,8 @@
   display: flex;
   flex-direction: column;
   gap: 6px;
+  flex: 1;
+  justify-content: space-between;
 }
 
 .listing-price {

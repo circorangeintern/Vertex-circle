@@ -1,15 +1,8 @@
-/* Filter homes search bottom sheet CSS */
+/* Filter homes search bottom sheet / modal CSS - Responsive Mobile & Desktop */
 .backdrop {
   position: relative;
   flex-shrink: 0;
   background: var(--canvas);
-}
-
-.backdrop::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(38, 34, 28, 0.55);
 }
 
 .sheet {
@@ -23,6 +16,18 @@
   box-shadow: 0 -8px 30px rgba(38, 34, 28, 0.14);
   min-height: 0;
   animation: sheet-in 0.28s ease-out;
+  max-width: 800px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .sheet {
+    border-radius: 24px;
+    margin-top: 24px;
+    box-shadow: 0 12px 36px rgba(38, 34, 28, 0.12);
+    border: 1px solid var(--line);
+  }
 }
 
 @keyframes sheet-in {

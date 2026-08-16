@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import BrandLogo from '../components/layout/BrandLogo';
 import '../styles/welcome.css';
 
 export default function Landing() {
@@ -29,16 +30,9 @@ export default function Landing() {
 
   return (
     <div className="app">
-      <main className="page">
-        <header className="brand">
-          <div className="brand-icon">
-            <svg viewBox="0 0 48 48" aria-hidden="true">
-              <path d="M10 21.5L24 10L38 21.5V38C38 39.1 37.1 40 36 40H12C10.9 40 10 39.1 10 38V21.5Z" fill="none"
-                stroke="white" strokeWidth="3" strokeLinejoin="round" />
-              <path d="M19 40V27H29V40" fill="none" stroke="white" strokeWidth="3" strokeLinejoin="round" />
-            </svg>
-          </div>
-          <h1>RentDirect</h1>
+      <main className="page welcome-page">
+        <header className="landing-header">
+          <BrandLogo size="lg" to="/home" />
         </header>
 
         <section className="hero">
@@ -68,31 +62,33 @@ export default function Landing() {
         <section className="actions">
           <h3>What do you want to do?</h3>
 
-          <button 
-            id="findHomeBtn"
-            className="button button-primary"
-            onClick={(e) => handleRipple(e, '/home')}
-          >
-            Find a home
-          </button>
+          <div className="actions-buttons">
+            <button 
+              id="findHomeBtn"
+              className="button button-primary"
+              onClick={(e) => handleRipple(e, '/home')}
+            >
+              Find a home
+            </button>
 
-          <button 
-            id="listPropertyBtn"
-            className="button button-primary"
-            style={{ background: '#FFFFFF', color: '#25221f', border: '3px solid #d3cbbd' }}
-            onClick={(e) => handleRipple(e, '/list/step-1')}
-          >
-            List your property
-          </button>
+            <button 
+              id="listPropertyBtn"
+              className="button button-primary"
+              style={{ background: '#FFFFFF', color: '#25221f', border: '2px solid #CFC7B8' }}
+              onClick={(e) => handleRipple(e, '/list/step-1')}
+            >
+              List your property
+            </button>
 
-          <button 
-            id="howItWorksBtn"
-            className="button button-primary"
-            style={{ background: 'transparent', color: '#2d6a4f', border: 'none' }}
-            onClick={(e) => handleRipple(e, '/how-it-works')}
-          >
-            How it works
-          </button>
+            <button 
+              id="howItWorksBtn"
+              className="button button-primary"
+              style={{ background: 'transparent', color: '#2D6A4F', border: '2px solid #2D6A4F' }}
+              onClick={(e) => handleRipple(e, '/how-it-works')}
+            >
+              How it works
+            </button>
+          </div>
         </section>
       </main>
     </div>

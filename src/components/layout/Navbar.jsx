@@ -42,6 +42,17 @@ export default function Navbar() {
             </button>
           )}
         </NavLink>
+
+        <NavLink to="/admin" style={{ textDecoration: 'none' }}>
+          {({ isActive }) => (
+            <button className={`nav-item ${isActive ? 'is-active' : ''}`} data-nav="admin">
+              <svg className="icon icon-admin" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 6C13.1 6 14 6.9 14 8C14 9.1 13.1 10 12 10C10.9 10 10 9.1 10 8C10 6.9 10.9 6 12 6ZM12 19.2C9.5 19.2 7.29 17.92 6 15.98C6.03 13.99 10 12.9 12 12.9C13.99 12.9 17.97 13.99 18 15.98C16.71 17.92 14.5 19.2 12 19.2Z" fill="currentColor"/>
+              </svg>
+              <span>Admin</span>
+            </button>
+          )}
+        </NavLink>
       </nav>
     </footer>
   );

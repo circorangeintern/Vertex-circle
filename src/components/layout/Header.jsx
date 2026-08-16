@@ -1,5 +1,6 @@
 import React from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, NavLink } from 'react-router-dom';
+import BrandLogo from './BrandLogo';
 
 export default function Header({ showBack, title }) {
   const navigate = useNavigate();
@@ -7,28 +8,49 @@ export default function Header({ showBack, title }) {
   if (showBack) {
     return (
       <header className="app-header">
-        <button
-          className="back-btn"
-          id="backBtn"
-          aria-label="Go back"
-          onClick={() => navigate(-1)}
-        >
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="icon icon-arrow">
-            <path d="M19 12H5" stroke="#26221C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-            <path d="M12 19L5 12L12 5" stroke="#26221C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </button>
-        {title && <h1 className="app-title">{title}</h1>}
+        <div className="header-left">
+          <button
+            className="back-btn"
+            id="backBtn"
+            aria-label="Go back"
+            onClick={() => navigate(-1)}
+          >
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="icon icon-arrow">
+              <path d="M19 12H5" stroke="#26221C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M12 19L5 12L12 5" stroke="#26221C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
+          {title && <h1 className="app-title">{title}</h1>}
+        </div>
+
+        <nav className="desktop-header-nav">
+          <NavLink to="/home" className={({ isActive }) => `desktop-nav-link ${isActive ? 'active' : ''}`}>
+            Find a home
+          </NavLink>
+          <NavLink to="/how-it-works" className={({ isActive }) => `desktop-nav-link ${isActive ? 'active' : ''}`}>
+            How it works
+          </NavLink>
+        </nav>
       </header>
     );
   }
 
   return (
     <header className="app-header">
-      <Link to="/home" className="brand" style={{ textDecoration: 'none' }}>
-        <span className="brand-mark" aria-hidden="true">R</span>
-        <span className="brand-name">RentDirect</span>
-      </Link>
+      <BrandLogo size="md" to="/home" />
+
+        <nav className="desktop-header-nav">
+          <NavLink to="/home" className={({ isActive }) => `desktop-nav-link ${isActive ? 'active' : ''}`}>
+            Find a home
+          </NavLink>
+          <NavLink to="/how-it-works" className={({ isActive }) => `desktop-nav-link ${isActive ? 'active' : ''}`}>
+            How it works
+          </NavLink>
+          <NavLink to="/admin" className={({ isActive }) => `desktop-nav-link ${isActive ? 'active' : ''}`}>
+            Admin Queue
+          </NavLink>
+        </nav>
+
       <button
         className="btn-accent"
         id="listPropertyBtn"
@@ -39,3 +61,4 @@ export default function Header({ showBack, title }) {
     </header>
   );
 }
+
